@@ -22,10 +22,16 @@ def add_donation():
     # donations = Donation.select()
 
     if request.method == 'POST':
-        print('received a post method from {} for {}'.format(
-            request.form['name'],
-            request.form['amount']
+        donor = request.form['name']
+        amount = request.form['amount']
+        
+        print('logging: Received a post method from {} for {}'.format(
+            donor,
+            amount
         ))
+
+        Donation(donor, amount).save()
+
         return all()
     else:
         return render_template('add_donation.jinja2')
