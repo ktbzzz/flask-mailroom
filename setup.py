@@ -10,6 +10,9 @@ db.drop_tables([Donor, Donation])
 
 db.create_tables([Donor, Donation])
 
+jae = Donor(name="Jae")
+jae.save()
+
 alice = Donor(name="Alice")
 alice.save()
 
@@ -19,7 +22,7 @@ bob.save()
 charlie = Donor(name="Charlie")
 charlie.save()
 
-donors = [alice, bob, charlie]
+donors = [alice, bob, charlie, jae]
 
 for x in range(30):
     Donation(donor=random.choice(donors), value=random.randint(100, 10000)).save()
