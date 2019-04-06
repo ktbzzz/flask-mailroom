@@ -30,7 +30,7 @@ def add_donation():
             amount
         ))
 
-        Donation(donor=donor, value=int(amount)).save()
+        Donation(donor=donor, value=amount).save()
 
         return all()
     else:
