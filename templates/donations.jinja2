@@ -7,7 +7,7 @@
 <form action="{{ url_for('all') }}" method="post">
 <select>
     {% for donor in donor_list %}
-        <option>{{ donor }}</option>
+        <option value={{ donor }}>{{ donor }}</option>
     {% endfor %}
 </select>
 <input type="submit" value="Submit">

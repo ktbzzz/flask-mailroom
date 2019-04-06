@@ -15,6 +15,9 @@ def home():
 
 @app.route('/donations/', methods=['GET', 'POST'])
 def all():
+    if request.method == 'POST':
+        print(request.form
+              )
     donations = Donation.select()
 
     donor_list = ['ALL']
