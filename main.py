@@ -30,6 +30,7 @@ def all():
         for donation in donations:
             if donation.donor.name == request.form['filter_by_donor']:
                 filtered_donors.append(donation)
+                
         # filtered_donors = [donor for donor in donations if donor.donation.name == request.form['filter_by_donor']]
 
         return render_template('donations.jinja2', donations=filtered_donors, donor_list=donor_list)
