@@ -24,13 +24,13 @@ def add_donation():
     if request.method == 'POST':
         donor = request.form['name']
         amount = request.form['amount']
-        
+
         print('logging: Received a post method from {} for {}'.format(
             donor,
             amount
         ))
 
-        Donation(donor, amount).save()
+        Donation(donor=donor, value=int(amount)).save()
 
         return all()
     else:
