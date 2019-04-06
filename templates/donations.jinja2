@@ -4,7 +4,7 @@
 {% block content %}
 <h2>Filter by:</h2>
 <br>
-<form action="{{ url_for('donations') }}" method="post">
+<form action="{{ url_for('all') }}" method="post">
 <select>
     {% for donor in donor_list %}
         <option>{{ donor }}</option>
