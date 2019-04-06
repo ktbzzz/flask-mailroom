@@ -4,11 +4,9 @@
 {% block content %}
 <h2>Filter by:</h2>
 <select>
-  <option>A</option>
-  <option>B</option>
-  <option>C</option>
-  <option>D</option>
-  <option>E</option>
+    {% for donor in donor_list %}
+        <option>donor</option>
+    {% endfor %}
 </select>
 
 {% block subtitle %}Current Donations{% endblock subtitle %}
