@@ -6,6 +6,7 @@ from flask import Flask, render_template, request, redirect, url_for, session
 from model import Donation
 
 app = Flask(__name__)
+app.secret_key = b'\x1d\xa5\xb0`2\x83\x98G\xc3Aa\x17=\nHO\xbd$\xb92\n\xa7S\x03'
 
 @app.route('/')
 def home():
@@ -21,6 +22,10 @@ def add_donation():
     # donations = Donation.select()
 
     if request.method == 'POST':
+        print('received a post method from {} for {}'.format(
+            request.form['name'],
+            request.form['amount']
+        ))
         return all()
     else:
         return render_template('add_donation.jinja2')
