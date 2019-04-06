@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<form method="post">
+<form action="{{ url_for('add_donation') }}" method="post">
   Name:<br>
   <input type="text" name="name"><br>
   Amount:<br>

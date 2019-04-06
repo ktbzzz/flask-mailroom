@@ -16,7 +16,7 @@ def all():
     donations = Donation.select()
     return render_template('donations.jinja2', donations=donations)
 
-@app.route('/add_donation/')
+@app.route('/add_donation/', methods=['GET', 'POST'])
 def add_donation():
     # donations = Donation.select()
     return render_template('add_donation.jinja2')
