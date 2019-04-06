@@ -19,7 +19,11 @@ def all():
 @app.route('/add_donation/', methods=['GET', 'POST'])
 def add_donation():
     # donations = Donation.select()
-    return render_template('add_donation.jinja2')
+
+    if request.method == 'POST':
+        return all()
+    else:
+        return render_template('add_donation.jinja2')
 
 
 if __name__ == "__main__":
