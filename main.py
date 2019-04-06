@@ -15,6 +15,7 @@ def home():
 
 @app.route('/donations/', methods=['GET', 'POST'])
 def all():
+    print('running all')
     donations = Donation.select()
 
     donor_list = ['ALL']
@@ -30,7 +31,7 @@ def all():
         for donation in donations:
             if donation.donor.name == request.form['filter_by_donor']:
                 filtered_donors.append(donation)
-                
+
         # filtered_donors = [donor for donor in donations if donor.donation.name == request.form['filter_by_donor']]
 
         return render_template('donations.jinja2', donations=filtered_donors, donor_list=donor_list)
@@ -54,7 +55,6 @@ def add_donation():
         temp.save()
 
         Donation(donor=temp, value=amount).save()
-        # Donation(donor=temp, value=random.randint(100, 10000)).save()
 
         return all()
     else:
