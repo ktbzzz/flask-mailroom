@@ -6,8 +6,8 @@
 {% block content %}
 <h2>Filter by:</h2>
 <select>
-    {% for donation.donor.name in donations|unique %}
-        <option value="{{ donation.donor.name }}">{{ donation.donor.name }}</option>
+    {% for donation in donor_list %}
+        <option value="{{ donation }}">{{ donation }}</option>
     {% endfor %}
 </select>
 

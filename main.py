@@ -16,8 +16,15 @@ def home():
 @app.route('/donations/')
 def all():
     donations = Donation.select()
-    print(donations)
-    return render_template('donations.jinja2', donations=donations)
+
+    donor_list = []
+
+    for donation in donations:
+        if donation.donor.name not in donor_list:
+            donor_list.append(donation.donor.name)
+
+    print(donor_list)
+    return render_template('donations.jinja2', donations=donations, donor_list=donor_list)
 
 @app.route('/add_donation/', methods=['GET', 'POST'])
 def add_donation():
