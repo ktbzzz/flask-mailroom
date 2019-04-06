@@ -15,18 +15,25 @@ def home():
 
 @app.route('/donations/', methods=['GET', 'POST'])
 def all():
-    if request.method == 'POST':
-        print("we got a filter request by:", request.form['filter_by_donor'])
     donations = Donation.select()
 
     donor_list = ['ALL']
 
+    # generate a list for the donor filter
     for donation in donations:
         if donation.donor.name not in donor_list:
             donor_list.append(donation.donor.name)
 
-    print(donor_list)
-    return render_template('donations.jinja2', donations=donations, donor_list=donor_list)
+    if request.method == 'POST':
+        print("we got a filter request by:", request.form['filter_by_donor'])
+
+        filtered_donors = [donor for donor in donations if donor.name == request.form['filter_by_donor']]
+
+        print("this is a list of filtered donors: ", filtered_donors)
+
+        return render_template('donations.jinja2', donations=donations, donor_list=donor_list)
+    else:
+        return render_template('donations.jinja2', donations=donations, donor_list=donor_list)
 
 @app.route('/add_donation/', methods=['GET', 'POST'])
 def add_donation():
