@@ -4,7 +4,7 @@ import base64
 
 from flask import Flask, render_template, request, redirect, url_for, session
 
-from model import Donation
+from model import db, Donor, Donation
 
 app = Flask(__name__)
 app.secret_key = b'\x1d\xa5\xb0`2\x83\x98G\xc3Aa\x17=\nHO\xbd$\xb92\n\xa7S\x03'
@@ -31,7 +31,11 @@ def add_donation():
             amount
         ))
 
-        Donation(donor=donor, value=random.randint(100, 10000)).save()
+        temp = Donor(name=donor)
+        temp.save()
+
+        Donation(donor=temp, value=amount).save()
+        # Donation(donor=temp, value=random.randint(100, 10000)).save()
 
         return all()
     else:
