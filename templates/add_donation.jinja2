@@ -3,5 +3,11 @@
 {% block subtitle %}Add Donation{% endblock subtitle %}
 
 {% block content %}
-Add donation form here
+<form method="POST">
+  Name:<br>
+  <input type="text" name="name"><br>
+  Amount:<br>
+  <input type="text" name="amount">
+  <input type="submit" value="Submit">
+</form>
 {% endblock content %}
