@@ -16,6 +16,12 @@ def all():
     donations = Donation.select()
     return render_template('donations.jinja2', donations=donations)
 
+@app.route('/add_donation/')
+def add_donation():
+    # donations = Donation.select()
+    return render_template('add_donation.jinja2')
+
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 6738))
     app.run(host='0.0.0.0', port=port)
