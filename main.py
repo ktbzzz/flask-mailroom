@@ -13,7 +13,7 @@ app.secret_key = b'\x1d\xa5\xb0`2\x83\x98G\xc3Aa\x17=\nHO\xbd$\xb92\n\xa7S\x03'
 def home():
     return redirect(url_for('all'))
 
-@app.route('/donations/')
+@app.route('/donations/', methods=['GET', 'POST'])
 def all():
     donations = Donation.select()
 
