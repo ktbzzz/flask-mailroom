@@ -25,12 +25,14 @@ def all():
             donor_list.append(donation.donor.name)
 
     if request.method == 'POST':
+        filtered_donors = []
         print("we got a filter request by:", request.form['filter_by_donor'])
         for donation in donations:
-            print(donation.donor.name)
+            if donation.donor.name == request.form['filter_by_donor']:
+                filtered_donors.append(donation)
         # filtered_donors = [donor for donor in donations if donor.donation.name == request.form['filter_by_donor']]
-        
-        return render_template('donations.jinja2', donations=donations, donor_list=donor_list)
+
+        return render_template('donations.jinja2', donations=filtered_donors, donor_list=donor_list)
     else:
         return render_template('donations.jinja2', donations=donations, donor_list=donor_list)
 
