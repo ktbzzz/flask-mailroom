@@ -1,4 +1,5 @@
 import os
+import random
 import base64
 
 from flask import Flask, render_template, request, redirect, url_for, session
@@ -30,7 +31,7 @@ def add_donation():
             amount
         ))
 
-        Donation(donor=donor, value=amount).save()
+        Donation(donor=donor, value=random.randint(100, 10000)).save()
 
         return all()
     else:
