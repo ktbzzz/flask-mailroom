@@ -5,11 +5,6 @@
 
 {% block content %}
 <h2>Filter by:</h2>
-<form action="{{ url_for('donations') }}" method="post">
-    <select name="filterby" onchange="filterby.submit()">
-
-    </select>
-</form>
 
 <ul>
     {% for donation in donations %}
