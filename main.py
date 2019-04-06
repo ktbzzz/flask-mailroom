@@ -17,13 +17,13 @@ def all():
     return render_template('donations.jinja2', donations=donations)
 
 
-@app.route('/add_donation', methods=['GET', 'POST'])
-def add_donation():
-    # donations = Donation.select()
-        if request.method == 'POST':
-            return all()
-        else:
-            return render_template('add_donation.jinja2')
+# @app.route('/add_donation', methods=['GET', 'POST'])
+# def add_donation():
+#     # donations = Donation.select()
+#         if request.method == 'POST':
+#             return all()
+#         else:
+#             return render_template('add_donation.jinja2')
 
     # return render_template('add_donation.jinja2')
 
