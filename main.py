@@ -16,7 +16,7 @@ def home():
 @app.route('/donations/', methods=['GET', 'POST'])
 def all():
     if request.method == 'POST':
-        print(request.form, request.form['filter_by_donor'])
+        print("we got a filter request by:", request.form['filter_by_donor'])
     donations = Donation.select()
 
     donor_list = ['ALL']
