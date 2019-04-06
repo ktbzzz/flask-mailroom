@@ -4,6 +4,13 @@
 {% block subtitle %}Current Donations{% endblock subtitle %}
 
 {% block content %}
+<h2>Filter by:</h2>
+<select>
+    {% for donation in donations %}
+        <option value="{{ donation.donor.name }}">{{ donation.donor.name }}</option>
+    {% endfor %}
+</select>
+
 <ul>
     {% for donation in donations %}
         <li><b>{{ donation.donor.name }}</b>: {{ donation.value }}</li>
