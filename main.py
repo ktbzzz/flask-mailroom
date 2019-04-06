@@ -17,7 +17,7 @@ def home():
 def all():
     donations = Donation.select()
 
-    donor_list = []
+    donor_list = ['ALL']
 
     for donation in donations:
         if donation.donor.name not in donor_list:
