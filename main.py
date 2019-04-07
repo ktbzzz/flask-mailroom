@@ -46,7 +46,8 @@ def add_donation():
         amount = request.form['amount']
 
         # add_donation form was submitted, and both fields were populated.
-        if donor and isinstance(amount, int):
+        if donor and amount:
+            print(type(amount))
             donor_exists = False
             current_donors = Donor
 
