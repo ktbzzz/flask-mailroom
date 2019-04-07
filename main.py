@@ -43,21 +43,23 @@ def add_donation():
         donor = request.form['name']
         amount = request.form['amount']
 
+        # add_donation form was submitted, and both fields were populated.
         if donor and amount:
             donor_exists = False
             current_donors = Donor
 
+            # determine if this is an existing owner, and store object in current_donor_object
             for donors in current_donors:
                 if donor.lower() == donors.name.lower():
                     donor_exists = True
                     current_donor_object = donors
 
-            if donor_exists is False:
+            if donor_exists:
+                Donation(donor=current_donor_object, value=amount).save()
+            else:
                 temp = Donor(name=donor)
                 temp.save()
                 Donation(donor=temp, value=amount).save()
-            elif donor_exists is True:
-                Donation(donor=current_donor_object, value=amount).save()
 
         return render_template('add_donation.jinja2')
     else:
