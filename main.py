@@ -56,12 +56,13 @@ def add_donation():
             Donation(donor=temp, value=amount).save()
         elif donor_exists is True:
             # not sure how to mitigate, leaving this in to prevent crash for now
-
             current_donors = Donor
 
             for donors in current_donors:
-                print(donors)
-                print(donors.name)
+                if donor.lower() == donors.name.lower():
+                    print('found the object and the mofo')
+                    print(donors)
+                    print(donors.name.lower())
             pass
 
         return render_template('add_donation.jinja2')
