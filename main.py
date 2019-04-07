@@ -61,6 +61,7 @@ def add_donation():
 
             for donors in current_donors:
                 print(donors)
+                print(donors.donor.name)
             pass
 
         return render_template('add_donation.jinja2')
