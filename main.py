@@ -54,7 +54,7 @@ def all():
         else:
             filtered_donors = donations
 
-        return render_template('donations.jinja2', donations=filtered_donors, donor_list=donor_list, select_value=request.form['filter_by_donor'])
+        return render_template('donations.jinja2', donations=filtered_donors, donor_list=donor_list)
 
     # return default view of all donations on GET
     elif request.method == 'GET':
@@ -68,9 +68,11 @@ def add_donation():
 
         # add_donation form was submitted, and both fields were populated.
         if donor and amount:
-            if isinstance(amount, list):
-                print('multiple donations incoming!, setting to 1')
-                amount = 1
+            if "," in amount:
+                for donation in amount.split(","):
+                    print(donation)
+
+            amount = 500
 
             current_donor = check_donor(donor)
 
