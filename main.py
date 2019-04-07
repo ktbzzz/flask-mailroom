@@ -56,7 +56,7 @@ def add_donation():
 
         Donation(donor=temp, value=amount).save()
 
-        return render_template('add_donation.jinja2')
+        return render_template('donations.jinja2')
     else:
         return render_template('add_donation.jinja2')
 
