@@ -43,25 +43,21 @@ def add_donation():
         donor = request.form['name']
         amount = request.form['amount']
 
-        donations = Donation.select()
-        donor_exists = False
-
-        for donation in donations:
-            if donor.lower() == donation.donor.name.lower():
-                donor_exists = True
-
-        if donor_exists is False:
-            temp = Donor(name=donor)
-            temp.save()
-            Donation(donor=temp, value=amount).save()
-        elif donor_exists is True:
-            # not sure how to mitigate, leaving this in to prevent crash for now
+        if donor and amount:
+            donor_exists = False
             current_donors = Donor
 
             for donors in current_donors:
                 if donor.lower() == donors.name.lower():
-                    Donation(donor=donors, value=amount).save()
-            pass
+                    donor_exists = True
+                    current_donor_object = donors
+
+            if donor_exists is False:
+                temp = Donor(name=donor)
+                temp.save()
+                Donation(donor=temp, value=amount).save()
+            elif donor_exists is True:
+                Donation(donor=current_donor_object, value=amount).save()
 
         return render_template('add_donation.jinja2')
     else:
