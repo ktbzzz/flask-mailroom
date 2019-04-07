@@ -78,7 +78,7 @@ def add_donation():
             # accepts a comma delimited listed for multiple donation input
             if "," in amount:
                 for donation in amount.split(","):
-                    add_new_donation(donor, amount)
+                    add_new_donation(donor, donation)
 
             # single donation
             else:
