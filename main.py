@@ -43,6 +43,13 @@ def add_donation():
         donor = request.form['name']
         amount = request.form['amount']
 
+        donations = Donation.select()
+
+        for donation in donations:
+            if donor in donation.donor.name:
+                print('donor has already donated, this would break so im exiting')
+                return
+
         temp = Donor(name=donor)
         temp.save()
 
