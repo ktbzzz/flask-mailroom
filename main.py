@@ -32,7 +32,7 @@ def generate_donor_list():
 
     return donor_list
 
-def add_donation(donor_name, donor_amount):
+def add_new_donation(donor_name, donor_amount):
     current_donor = check_donor(donor_name)
 
     if current_donor:
@@ -78,11 +78,11 @@ def add_donation():
             # accepts a comma delimited listed for multiple donation input
             if "," in amount:
                 for donation in amount.split(","):
-                    add_donation(donor, amount)
+                    add_new_donation(donor, amount)
 
             # single donation
             else:
-                add_donation(donor, amount)
+                add_new_donation(donor, amount)
 
         return render_template('donations.jinja2', donations=Donation.select(), donor_list=generate_donor_list())
     else:
