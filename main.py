@@ -23,16 +23,31 @@ def check_donor(donor_name):
     return
 
 def generate_donor_list():
+    '''
+    returns a donor list used in the drop down box, allowing for filtering
+
+    :return:
+    '''
     donations = Donation.select()
 
-    donor_list = ['ALL']
+    donor_list = []
+
     for donation in donations:
         if donation.donor.name not in donor_list:
             donor_list.append(donation.donor.name)
 
-    return donor_list
+    sorted_donor_list = sorted(donor_list)
+
+    return ['ALL'] + sorted_donor_list
 
 def add_new_donation(donor_name, donor_amount):
+    '''
+    handles logic to determine if donor_name is an existing donor, and adding donation
+
+    :param donor_name:
+    :param donor_amount:
+    :return:
+    '''
     current_donor = check_donor(donor_name)
 
     if current_donor:
