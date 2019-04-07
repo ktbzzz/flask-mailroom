@@ -60,9 +60,7 @@ def add_donation():
 
             for donors in current_donors:
                 if donor.lower() == donors.name.lower():
-                    print('found the object and the mofo')
-                    print(donors)
-                    print(donors.name.lower())
+                    Donation(donor=donors, value=amount).save()
             pass
 
         return render_template('add_donation.jinja2')
