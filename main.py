@@ -68,6 +68,10 @@ def add_donation():
 
         # add_donation form was submitted, and both fields were populated.
         if donor and amount:
+            if isinstance(amount, list):
+                print('multiple donations incoming!, setting to 1')
+                amount = 1
+
             current_donor = check_donor(donor)
 
             if current_donor:
@@ -78,7 +82,7 @@ def add_donation():
                 Donation(donor=temp, value=amount).save()
         donations = Donation.select()
         donor_list = generate_donor_list()
-        
+
         return render_template('donations.jinja2', donations=donations, donor_list=donor_list)
     else:
         return render_template('add_donation.jinja2')
