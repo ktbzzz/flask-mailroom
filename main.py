@@ -20,19 +20,20 @@ def all():
 
     donor_list = ['ALL']
 
-    # generate a list for the donor filter
+    # Generate a list for the donor filter
     for donation in donations:
         if donation.donor.name not in donor_list:
             donor_list.append(donation.donor.name)
 
     if request.method == 'POST':
-        filtered_donors = []
-        print("we got a filter request by:", request.form['filter_by_donor'])
-        for donation in donations:
-            if donation.donor.name == request.form['filter_by_donor']:
-                filtered_donors.append(donation)
+        if request.form['filter_by_donor'] != 'ALL':
+            filtered_donors = []
 
-        # filtered_donors = [donor for donor in donations if donor.donation.name == request.form['filter_by_donor']]
+            for donation in donations:
+                if donation.donor.name == request.form['filter_by_donor']:
+                    filtered_donors.append(donation)
+        else:
+            filtered_donors = donations
 
         return render_template('donations.jinja2', donations=filtered_donors, donor_list=donor_list)
     else:
@@ -56,7 +57,7 @@ def add_donation():
 
         Donation(donor=temp, value=amount).save()
 
-        return render_template('donations.jinja2')
+        return render_template('add_donation.jinja2')
     else:
         return render_template('add_donation.jinja2')
 
