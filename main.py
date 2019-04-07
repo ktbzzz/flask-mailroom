@@ -22,7 +22,7 @@ def all():
         if donation.donor.name not in donor_list:
             donor_list.append(donation.donor.name)
 
-    # if post, return a filtered view. if get, return default view.
+    # if POST, determine whether a Name or ALL was selected, and filter results
     if request.method == 'POST':
         if request.form['filter_by_donor'] != 'ALL':
             filtered_donors = []
@@ -34,6 +34,8 @@ def all():
             filtered_donors = donations
 
         return render_template('donations.jinja2', donations=filtered_donors, donor_list=donor_list, select_value=request.form['filter_by_donor'])
+
+    # return default view of all donations on GET
     elif request.method == 'GET':
         return render_template('donations.jinja2', donations=donations, donor_list=donor_list)
 
@@ -54,9 +56,9 @@ def add_donation():
                     donor_exists = True
                     current_donor_object = donors
 
-            if donor_exists:
+            if donor_exists is True:
                 Donation(donor=current_donor_object, value=amount).save()
-            else:
+            elif donor_exists is False:
                 temp = Donor(name=donor)
                 temp.save()
                 Donation(donor=temp, value=amount).save()
