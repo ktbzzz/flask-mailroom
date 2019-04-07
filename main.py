@@ -17,10 +17,12 @@ def all():
     donations = Donation.select()
 
     # generate a list to be populated into drop down list, allowing for filter by donors
-    donor_list = ['ALL']
+    donor_list = []
     for donation in donations:
         if donation.donor.name not in donor_list:
             donor_list.append(donation.donor.name)
+
+    donor_list = sorted(donor_list)
 
     # if post, return a filtered view. if get, return default view.
     if request.method == 'POST':
@@ -30,6 +32,9 @@ def all():
             for donation in donations:
                 if donation.donor.name == request.form['filter_by_donor']:
                     filtered_donors.append(donation)
+
+            donor_list = ['ALL'] + donor_list
+
         else:
             filtered_donors = donations
 
