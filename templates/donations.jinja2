@@ -7,7 +7,11 @@
 <form action="{{ url_for('all') }}" method="post">
 <select name="filter_by_donor" value="{{ select_value }}">
     {% for donor in donor_list %}
-        <option value={{ donor }}>{{ donor }}</option>
+        {% if {{ donor }} == {{ select_value }} %}
+            <option value={{ donor }} selected>{{ donor }}</option>
+        {% else %}
+            <option value={{ donor }}>{{ donor }}</option>
+        {% endif %}
     {% endfor %}
 </select>
 <input type="submit" value="Submit">
