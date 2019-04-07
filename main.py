@@ -41,25 +41,18 @@ def all():
 
 @app.route('/add_donation/', methods=['GET', 'POST'])
 def add_donation():
+
     if request.method == 'POST':
         donor = request.form['name']
         amount = request.form['amount']
 
         # add_donation form was submitted, and both fields were populated.
         if donor and amount:
-            print(type(amount))
-            donor_exists = False
-            current_donors = Donor
+            current_donor = donor_exist(donor)
 
-            # determine if this is an existing owner, and store object in current_donor_object
-            for donors in current_donors:
-                if donor.lower() == donors.name.lower():
-                    donor_exists = True
-                    current_donor_object = donors
-
-            if donor_exists is True:
-                Donation(donor=current_donor_object, value=amount).save()
-            elif donor_exists is False:
+            if current_donor:
+                Donation(donor=current_donor, value=amount).save()
+            else:
                 temp = Donor(name=donor)
                 temp.save()
                 Donation(donor=temp, value=amount).save()
@@ -68,6 +61,17 @@ def add_donation():
     else:
         return render_template('add_donation.jinja2')
 
+def donor_exist(donor_name):
+    print('checking if {} exists'.format(donor_name))
+    current_donors = Donor
+
+    for donors in current_donors:
+        if donor_name.lower() == donors.name.lower():
+            print('donor exists!', donor_name)
+            return donors
+
+    print('donor does not exist')
+    return
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 6738))
