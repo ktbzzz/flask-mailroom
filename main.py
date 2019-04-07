@@ -7,7 +7,6 @@ from flask import Flask, render_template, request, redirect, url_for, session
 from model import db, Donor, Donation
 
 app = Flask(__name__)
-app.secret_key = b'\x1d\xa5\xb0`2\x83\x98G\xc3Aa\x17=\nHO\xbd$\xb92\n\xa7S\x03'
 
 @app.route('/')
 def home():
@@ -36,7 +35,7 @@ def all():
             filtered_donors = donations
 
         return render_template('donations.jinja2', donations=filtered_donors, donor_list=donor_list)
-    else:
+    elif request.method == 'GET':
         return render_template('donations.jinja2', donations=donations, donor_list=donor_list)
 
 @app.route('/add_donation/', methods=['GET', 'POST'])
