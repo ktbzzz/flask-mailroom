@@ -56,6 +56,11 @@ def add_donation():
             Donation(donor=temp, value=amount).save()
         elif donor_exists is True:
             # not sure how to mitigate, leaving this in to prevent crash for now
+
+            current_donors = Donor
+
+            for donors in current_donors:
+                print(donors)
             pass
 
         return render_template('add_donation.jinja2')
