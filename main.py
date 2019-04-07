@@ -32,6 +32,16 @@ def generate_donor_list():
 
     return donor_list
 
+def add_donation(donor_name, donor_amount):
+    current_donor = check_donor(donor_name)
+
+    if current_donor:
+        Donation(donor=current_donor, value=donor_amount).save()
+    else:
+        temp = Donor(name=donor_name)
+        temp.save()
+        Donation(donor=temp, value=donor_amount).save()
+
 @app.route('/')
 def home():
     return redirect(url_for('all'))
@@ -68,24 +78,16 @@ def add_donation():
 
         # add_donation form was submitted, and both fields were populated.
         if donor and amount:
+            # accepts a comma delimited listed for multiple donation input
             if "," in amount:
                 for donation in amount.split(","):
-                    print(donation)
+                    add_donation(donor, amount)
 
-            amount = 500
-
-            current_donor = check_donor(donor)
-
-            if current_donor:
-                Donation(donor=current_donor, value=amount).save()
+            # single donation
             else:
-                temp = Donor(name=donor)
-                temp.save()
-                Donation(donor=temp, value=amount).save()
-        donations = Donation.select()
-        donor_list = generate_donor_list()
+                add_donation(donor, amount)
 
-        return render_template('donations.jinja2', donations=donations, donor_list=donor_list)
+        return render_template('donations.jinja2', donations=Donation.select(), donor_list=generate_donor_list())
     else:
         return render_template('add_donation.jinja2')
 
