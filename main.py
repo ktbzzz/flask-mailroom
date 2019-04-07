@@ -39,16 +39,9 @@ def all():
 
 @app.route('/add_donation/', methods=['GET', 'POST'])
 def add_donation():
-    # donations = Donation.select()
-
     if request.method == 'POST':
         donor = request.form['name']
         amount = request.form['amount']
-
-        print('logging: Received a post method from {} for {}'.format(
-            donor,
-            amount
-        ))
 
         temp = Donor(name=donor)
         temp.save()

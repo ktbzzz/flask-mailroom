@@ -1,7 +1,5 @@
 {% extends 'base.jinja2' %}
 
-
-{% block content %}
 <h2>Filter by:</h2>
 <br>
 <form action="{{ url_for('all') }}" method="post">
@@ -13,7 +11,7 @@
 <input type="submit" value="Submit">
 </form>
 
-<h2>i should select {{ select_value }}</h2>
+{% block content %}
 
 {% block subtitle %}Current Donations{% endblock subtitle %}
 
