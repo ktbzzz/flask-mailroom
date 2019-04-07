@@ -45,11 +45,15 @@ def add_donation():
 
         donations = Donation.select()
 
-        for donation in donations:
-            if donor in donation.donor.name:
-                print('donor has already donated, this would break so im exiting')
-                return
+        if donor in donations.donor.name:
+            print('hes already donated')
+        else:
+            print('new donor!')
 
+        # for donation in donations:
+        #     if donor in donation.donor.name:
+        #         Donation(donor=Donor(name=donor), value=amount).save()
+        #
         temp = Donor(name=donor)
         temp.save()
 
