@@ -13,8 +13,6 @@
 <input type="submit" value="Submit">
 </form>
 
-{% block subtitle %}Current Donations{% endblock subtitle %}
-
 <ul>
     {% for donation in donations %}
         <li><b>{{ donation.donor.name }}</b>: {{ donation.value }}</li>
