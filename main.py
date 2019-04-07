@@ -44,20 +44,22 @@ def add_donation():
         amount = request.form['amount']
 
         donations = Donation.select()
+        donor_exists = False
 
-        if donor in donations.donor.name:
-            print('hes already donated')
+        for donation in donations:
+            if donor in donation.donor.name:
+                donor_exists = True
+
+        if donor_exists:
+            print('exists')
         else:
-            print('new donor!')
+            print('false')
 
-        # for donation in donations:
-        #     if donor in donation.donor.name:
-        #         Donation(donor=Donor(name=donor), value=amount).save()
+        # Donation(donor=Donor(name=donor), value=amount).save()
+        # temp = Donor(name=donor)
+        # temp.save()
         #
-        temp = Donor(name=donor)
-        temp.save()
-
-        Donation(donor=temp, value=amount).save()
+        # Donation(donor=temp, value=amount).save()
 
         return render_template('add_donation.jinja2')
     else:
