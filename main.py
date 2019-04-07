@@ -47,13 +47,13 @@ def add_donation():
         donor_exists = False
 
         for donation in donations:
-            if donor in donation.donor.name:
+            if donor.lower() == donation.donor.name.lower():
                 donor_exists = True
 
         if donor_exists:
-            print('exists')
+            Donation(donor=Donor(name=donor), value=amount).save()
         else:
-            print('false')
+            Donation(donor=Donor(name=donor), value=amount).save()
 
         # Donation(donor=Donor(name=donor), value=amount).save()
         # temp = Donor(name=donor)
