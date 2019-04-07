@@ -8,6 +8,30 @@ from model import db, Donor, Donation
 
 app = Flask(__name__)
 
+def check_donor(donor_name):
+    '''
+    Checks to see if donor_name is an existing donor, if so, returns the donor object
+
+    :param donor_name:
+    :return:
+    '''
+    current_donors = Donor
+
+    for donors in current_donors:
+        if donor_name.lower() == donors.name.lower():
+            return donors
+    return
+
+def generate_donor_list():
+    donations = Donation.select()
+
+    donor_list = ['ALL']
+    for donation in donations:
+        if donation.donor.name not in donor_list:
+            donor_list.append(donation.donor.name)
+
+    return donor_list
+
 @app.route('/')
 def home():
     return redirect(url_for('all'))
@@ -17,10 +41,7 @@ def all():
     donations = Donation.select()
 
     # generate a list to be populated into drop down list, allowing for filter by donors
-    donor_list = ['ALL']
-    for donation in donations:
-        if donation.donor.name not in donor_list:
-            donor_list.append(donation.donor.name)
+    donor_list = generate_donor_list()
 
     # if POST, determine whether a Name or ALL was selected, and filter results
     if request.method == 'POST':
@@ -41,14 +62,13 @@ def all():
 
 @app.route('/add_donation/', methods=['GET', 'POST'])
 def add_donation():
-
     if request.method == 'POST':
         donor = request.form['name']
         amount = request.form['amount']
 
         # add_donation form was submitted, and both fields were populated.
         if donor and amount:
-            current_donor = donor_exist(donor)
+            current_donor = check_donor(donor)
 
             if current_donor:
                 Donation(donor=current_donor, value=amount).save()
@@ -56,22 +76,12 @@ def add_donation():
                 temp = Donor(name=donor)
                 temp.save()
                 Donation(donor=temp, value=amount).save()
-
-        return render_template('add_donation.jinja2')
+        donations = Donation.select()
+        donor_list = generate_donor_list()
+        
+        return render_template('donations.jinja2', donations=donations, donor_list=donor_list)
     else:
         return render_template('add_donation.jinja2')
-
-def donor_exist(donor_name):
-    print('checking if {} exists'.format(donor_name))
-    current_donors = Donor
-
-    for donors in current_donors:
-        if donor_name.lower() == donors.name.lower():
-            print('donor exists!', donor_name)
-            return donors
-
-    print('donor does not exist')
-    return
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 6738))
