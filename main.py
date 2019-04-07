@@ -51,7 +51,10 @@ def add_donation():
                 donor_exists = True
 
         if donor_exists is False:
-            Donation(donor=Donor(name=donor), value=amount).save()
+            # Donation(donor=Donor(name=donor), value=amount).save()
+            temp = Donor(name=donor)
+            temp.save()
+            Donation(donor=temp, value=amount).save()
 
         # Donation(donor=Donor(name=donor), value=amount).save()
         # temp = Donor(name=donor)
