@@ -50,9 +50,6 @@ def home():
 def all():
     donations = Donation.select()
 
-    # generate a list to be populated into drop down list, allowing for filter by donors
-    donor_list = generate_donor_list()
-
     # if POST, determine whether a Name or ALL was selected, and filter results
     if request.method == 'POST':
         if request.form['filter_by_donor'] != 'ALL':
@@ -64,11 +61,11 @@ def all():
         else:
             filtered_donors = donations
 
-        return render_template('donations.jinja2', donations=filtered_donors, donor_list=donor_list)
+        return render_template('donations.jinja2', donations=filtered_donors, donor_list=generate_donor_list())
 
     # return default view of all donations on GET
     elif request.method == 'GET':
-        return render_template('donations.jinja2', donations=donations, donor_list=donor_list)
+        return render_template('donations.jinja2', donations=donations, donor_list=generate_donor_list())
 
 @app.route('/add_donation/', methods=['GET', 'POST'])
 def add_donation():
