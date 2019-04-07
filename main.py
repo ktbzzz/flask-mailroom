@@ -57,7 +57,7 @@ def add_donation():
             Donation(donor=temp, value=amount).save()
         elif donor_exists is True:
             print('donor exists, time to crash!')
-            Donation(donor=Donor(name=donor), value=amount).save()
+            Donation(donor=donor, value=amount).save()
 
         # Donation(donor=Donor(name=donor), value=amount).save()
         # temp = Donor(name=donor)
