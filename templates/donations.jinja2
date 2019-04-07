@@ -5,13 +5,9 @@
 <h2>Filter by:</h2>
 <br>
 <form action="{{ url_for('all') }}" method="post">
-<select name="filter_by_donor" value="{{ select_value }}">
+<select name="filter_by_donor">
     {% for donor in donor_list %}
-        {% if {{ donor }} == {{ select_value }} %}
-            <option value={{ donor }} selected>{{ donor }}</option>
-        {% else %}
             <option value={{ donor }}>{{ donor }}</option>
-        {% endif %}
     {% endfor %}
 </select>
 <input type="submit" value="Submit">

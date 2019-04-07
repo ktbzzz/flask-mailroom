@@ -14,16 +14,15 @@ def home():
 
 @app.route('/donations/', methods=['GET', 'POST'])
 def all():
-    print('running all')
     donations = Donation.select()
 
+    # generate a list to be populated into drop down list, allowing for filter by donors
     donor_list = ['ALL']
-
-    # Generate a list for the donor filter
     for donation in donations:
         if donation.donor.name not in donor_list:
             donor_list.append(donation.donor.name)
 
+    # if post, return a filtered view. if get, return default view.
     if request.method == 'POST':
         if request.form['filter_by_donor'] != 'ALL':
             filtered_donors = []
