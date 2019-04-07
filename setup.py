@@ -22,7 +22,10 @@ bob.save()
 charlie = Donor(name="Charlie")
 charlie.save()
 
-donors = [alice, bob, charlie, jae]
+xavier = Donor(name="Xavier")
+xavier.save()
 
-for x in range(10):
+donors = [alice, bob, charlie, jae, xavier]
+
+for x in range(20):
     Donation(donor=random.choice(donors), value=random.randint(100, 10000)).save()
