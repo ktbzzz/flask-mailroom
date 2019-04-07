@@ -34,7 +34,7 @@ def all():
         else:
             filtered_donors = donations
 
-        return render_template('donations.jinja2', donations=filtered_donors, donor_list=donor_list)
+        return render_template('donations.jinja2', donations=filtered_donors, donor_list=donor_list, select_value=request.form['filter_by_donor'])
     elif request.method == 'GET':
         return render_template('donations.jinja2', donations=donations, donor_list=donor_list)
 
